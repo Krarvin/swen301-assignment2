@@ -15,6 +15,11 @@ import org.apache.velocity.runtime.RuntimeSingleton;
 import org.apache.velocity.runtime.parser.ParseException;
 
 public class T1Layout extends Layout{
+	private String pattern;
+
+	public T1Layout(String pattern) {
+		this.pattern = pattern;
+	}
 
 
 	public void activateOptions() {
@@ -27,7 +32,7 @@ public class T1Layout extends Layout{
 		try {
 			VelocityEngine ve = new VelocityEngine();
 			RuntimeServices runtimeServices = RuntimeSingleton.getRuntimeServices();
-			StringReader reader = new StringReader("Priority - $Priority, Category - $Category, Date - $Date, Message - $Message");
+			StringReader reader = new StringReader(pattern);
 			Template t = new Template();
 			t.setRuntimeServices(runtimeServices);
 			t.setData(runtimeServices.parse(reader, "template"));

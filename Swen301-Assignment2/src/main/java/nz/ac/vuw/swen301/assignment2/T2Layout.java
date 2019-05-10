@@ -19,14 +19,18 @@ public class T2Layout extends Layout{
 
 	}
 
+	private String pattern;
 
+	public T2Layout(String pattern) {
+		this.pattern = pattern;
+	}
 
 	@Override
 	public String format(LoggingEvent loggingEvent) {
-		String template = "Priority - ${Priority} , Category - ${Category}, Date - ${Date}, Message - ${Message}";
+		String template = pattern;
 		Map<String, Object> input = new HashMap<String, Object>();
 		  Configuration cfg = new Configuration(Configuration.VERSION_2_3_28);
-		  
+
 
 		    cfg.setIncompatibleImprovements(new Version(2, 3, 20));
 		    cfg.setDefaultEncoding("UTF-8");

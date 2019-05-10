@@ -1,4 +1,4 @@
-package nz.ac.vuw.swen301.assignment2;
+package test.nz.ac.vuw.swen301.assignment2;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
@@ -13,6 +13,7 @@ import org.apache.log4j.spi.LoggingEvent;
 import org.junit.Test;
 
 import freemarker.core.ParseException;
+import nz.ac.vuw.swen301.assignment2.MemAppender;
 
 /**
  * Unit test for simple App.

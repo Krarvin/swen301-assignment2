@@ -1,4 +1,4 @@
-package nz.ac.vuw.swen301.assignment2;
+package test.nz.ac.vuw.swen301.assignment2;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
@@ -9,50 +9,42 @@ import org.apache.log4j.Logger;
 import org.junit.Test;
 
 import freemarker.core.ParseException;
+import nz.ac.vuw.swen301.assignment2.MemAppender;
+import nz.ac.vuw.swen301.assignment2.T1Layout;
 
 public class T1LayoutTest {
 	@Test
 	public void T1LayoutTest1() {
 
-		Layout layout = new T1Layout();
+		Layout layout = new T1Layout("Priority - ${Priority} , Category - ${Category}, Date - ${Date}, Message - ${Message}");
 		MemAppender appender = new MemAppender(layout, 1);
 		Logger logger = Logger.getLogger("test2");
 		logger.addAppender(appender);
 		logger.error("testing test 2");
 		logger.info("testing if max");
 		assertEquals(appender.getDiscardedLogCount(), 1);
-		System.out.println("============= test 1 Current Logs ===============");
-		System.out.print(appender.getCurrentLogs().get(0).toString());
-		System.out.println("============= Number of Discarded Logs ===============");
-		System.out.println(appender.getDiscardedLogCount());
-		System.out.println();
+
 
 	}
 
 	@Test
 	public void T1LayoutTest2() {
 
-		Layout layout = new T1Layout();
+		Layout layout = new T1Layout("Priority - ${Priority} , Category - ${Category}, Date - ${Date}, Message - ${Message}");
 		MemAppender appender = new MemAppender(layout, 2);
 		Logger logger = Logger.getLogger("test2");
 		logger.addAppender(appender);
 		logger.error("testing test 2");
 		logger.info("testing if max");
 		assertEquals(appender.getCurrentLogs().size(), 2);
-		System.out.println("============= test 2 Current Logs ===============");
-		for(int i = 0; i < appender.getCurrentLogs().size(); i++) {
-		System.out.print(appender.getCurrentLogs().get(i).toString());
-		}
-		System.out.println("============= Number of Discarded Logs ===============");
-		System.out.println(appender.getDiscardedLogCount());
-		System.out.println();
+
 
 	}
 
 	@Test
 	public void T1LayoutTest3() {
 
-		Layout layout = new T1Layout();
+		Layout layout = new T1Layout("Priority - ${Priority} , Category - ${Category}, Date - ${Date}, Message - ${Message}");
 		layout.activateOptions();
 		layout.ignoresThrowable();
 		MemAppender appender = new MemAppender(layout, 2);
@@ -61,19 +53,28 @@ public class T1LayoutTest {
 		logger.error("testing test 2");
 		logger.info("testing if max");
 		assertEquals(appender.getCurrentLogs().size(), 2);
-		System.out.println("============= test 3 Current Logs ===============");
-		for(int i = 0; i < appender.getCurrentLogs().size(); i++) {
-		System.out.print(appender.getCurrentLogs().get(i).toString());
-		}
-		System.out.println("============= Number of Discarded Logs ===============");
-		System.out.println(appender.getDiscardedLogCount());
-		System.out.println();
+
+	}
+
+	@Test
+	public void T1FormatTest() {
+
+		Layout layout = new T1Layout("Priority - ${Priority} , Category - ${Category}, Message - ${Message}");
+		layout.activateOptions();
+		layout.ignoresThrowable();
+		MemAppender appender = new MemAppender(layout, 2);
+		Logger logger = Logger.getLogger("FormatTest");
+		logger.addAppender(appender);
+		logger.info("testing Format");
+		assertEquals(appender.getCurrentLogs().size(), 1);
+		assertEquals(appender.getCurrentLogs().get(0), ("Priority - INFO , Category - FormatTest, Message - testing Format"));
+
 	}
 
 	@Test (expected = RuntimeException.class)
 	public void closeTest() throws ParseException {
 
-		Layout layout = new T1Layout();
+		Layout layout = new T1Layout("Priority - ${Priority} , Category - ${Category}, Date - ${Date}, Message - ${Message}");
 		MemAppender appender = new MemAppender(layout, 3);
 		appender.close();
 		appender.getCurrentLogs();
@@ -89,7 +90,7 @@ public class T1LayoutTest {
 
 	@Test
 	public void LayoutTest() throws ParseException {
-		Layout layout = new T1Layout();
+		Layout layout = new T1Layout("Priority - ${Priority} , Category - ${Category}, Date - ${Date}, Message - ${Message}");
 		MemAppender appender = new MemAppender(layout, 3);
 		assertEquals(true, appender.requiresLayout());
 	}
@@ -97,7 +98,7 @@ public class T1LayoutTest {
 	@Test
 	public void testFatalLevel() throws ParseException {
 
-		Layout layout = new T1Layout();
+		Layout layout = new T1Layout("Priority - ${Priority} , Category - ${Category}, Date - ${Date}, Message - ${Message}");
 		MemAppender appender = new MemAppender(layout, 3);
 		Logger logger = Logger.getLogger("fatal test");
 		logger.setLevel(Level.FATAL);
@@ -110,18 +111,13 @@ public class T1LayoutTest {
 		logger.trace("trace level");
 		assertEquals(1, appender.getCurrentLogs().size());
 		assertEquals(0, appender.getDiscardedLogCount());
-		System.out.println("=============Fatal Level Current Logs ===============");
-		for(int i = 0; i < appender.getCurrentLogs().size(); i++) {
-		System.out.print(appender.getCurrentLogs().get(i).toString());}
-		System.out.println("============= Number of Discarded Logs ===============");
-		System.out.println(appender.getDiscardedLogCount());
-		System.out.println();
+
 	}
 
 	@Test
 	public void testErrorLevel() throws ParseException {
 
-		Layout layout = new T1Layout();
+		Layout layout = new T1Layout("Priority - ${Priority} , Category - ${Category}, Date - ${Date}, Message - ${Message}");
 		MemAppender appender = new MemAppender(layout, 3);
 		Logger logger = Logger.getLogger("Error Test");
 		logger.setLevel(Level.ERROR);
@@ -134,19 +130,13 @@ public class T1LayoutTest {
 		logger.trace("trace level");
 		assertEquals(2, appender.getCurrentLogs().size());
 		assertEquals(0, appender.getDiscardedLogCount());
-		System.out.println("=============Error Level Current Logs ===============");
-		for(int i = 0; i < appender.getCurrentLogs().size(); i++) {
-		System.out.print(appender.getCurrentLogs().get(i).toString());
-		}
-		System.out.println("============= Number of Discarded Logs ===============");
-		System.out.println(appender.getDiscardedLogCount());
-		System.out.println();
+
 	}
 
 	@Test
 	public void testWarnLevel() throws ParseException {
 
-		Layout layout = new T1Layout();
+		Layout layout = new T1Layout("Priority - ${Priority} , Category - ${Category}, Date - ${Date}, Message - ${Message}");
 		MemAppender appender = new MemAppender(layout, 3);
 		Logger logger = Logger.getLogger("Warn Test");
 		logger.setLevel(Level.WARN);
@@ -159,20 +149,14 @@ public class T1LayoutTest {
 		logger.trace("trace level");
 		assertEquals(3, appender.getCurrentLogs().size());
 		assertEquals(0, appender.getDiscardedLogCount());
-		System.out.println("=============Warn Current Logs ===============");
-		for(int i = 0; i < appender.getCurrentLogs().size(); i++) {
-		System.out.print(appender.getCurrentLogs().get(i).toString());
-		}
-		System.out.println("============= Number of Discarded Logs ===============");
-		System.out.println(appender.getDiscardedLogCount());
-		System.out.println();
+
 	}
 
 
 	@Test
 	public void testInfoLevel() throws ParseException {
 
-		Layout layout = new T1Layout();
+		Layout layout = new T1Layout("Priority - ${Priority} , Category - ${Category}, Date - ${Date}, Message - ${Message}");
 		MemAppender appender = new MemAppender(layout, 3);
 		Logger logger = Logger.getLogger("Info Test");
 		logger.setLevel(Level.INFO);
@@ -187,19 +171,13 @@ public class T1LayoutTest {
 		assertEquals(3, appender.getCurrentLogs().size());
 		assertNotEquals(copy, appender.getCurrentLogs().get(0));
 		assertEquals(1, appender.getDiscardedLogCount());
-		System.out.println("============= Info Level Current Logs ===============");
-		for(int i = 0; i < appender.getCurrentLogs().size(); i++) {
-		System.out.print(appender.getCurrentLogs().get(i).toString());
-		}
-		System.out.println("============= Number of Discarded Logs ===============");
-		System.out.println(appender.getDiscardedLogCount());
-		System.out.println();
+
 	}
 
 	@Test
 	public void testDebugLevel() throws ParseException {
 
-		Layout layout = new T1Layout();
+		Layout layout = new T1Layout("Priority - ${Priority} , Category - ${Category}, Date - ${Date}, Message - ${Message}");
 		MemAppender appender = new MemAppender(layout, 3);
 		Logger logger = Logger.getLogger("Debug test");
 		logger.setLevel(Level.DEBUG);
@@ -216,19 +194,13 @@ public class T1LayoutTest {
 		assertNotEquals(copy1, appender.getCurrentLogs().get(0));
 		assertNotEquals(copy2, appender.getCurrentLogs().get(1));
 		assertEquals(2, appender.getDiscardedLogCount());
-		System.out.println("============= Debug Level Current Logs ===============");
-		for(int i = 0; i < appender.getCurrentLogs().size(); i++) {
-		System.out.print(appender.getCurrentLogs().get(i).toString());
-		}
-		System.out.println("============= Number of Discarded Logs ===============");
-		System.out.println(appender.getDiscardedLogCount());
-		System.out.println();
+
 	}
 
 	@Test
 	public void testTraceLevel() throws ParseException {
 
-		Layout layout = new T1Layout();
+		Layout layout = new T1Layout("Priority - ${Priority} , Category - ${Category}, Date - ${Date}, Message - ${Message}");
 		MemAppender appender = new MemAppender(layout, 3);
 		Logger logger = Logger.getLogger("Trace test");
 		logger.setLevel(Level.TRACE);
@@ -247,12 +219,6 @@ public class T1LayoutTest {
 		assertNotEquals(copy2, appender.getCurrentLogs().get(1));
 		assertNotEquals(copy2, appender.getCurrentLogs().get(2));
 		assertEquals(3, appender.getDiscardedLogCount());
-		System.out.println("============= Trace Level Current Logs ===============");
-		for(int i = 0; i < appender.getCurrentLogs().size(); i++) {
-		System.out.print(appender.getCurrentLogs().get(i).toString());
-		}
-		System.out.println("============= Number of Discarded Logs ===============");
-		System.out.println(appender.getDiscardedLogCount());
-		System.out.println();
+
 	}
 }

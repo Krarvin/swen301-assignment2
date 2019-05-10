@@ -1,4 +1,4 @@
-package nz.ac.vuw.swen301.assignment2;
+package test.nz.ac.vuw.swen301.assignment2;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
