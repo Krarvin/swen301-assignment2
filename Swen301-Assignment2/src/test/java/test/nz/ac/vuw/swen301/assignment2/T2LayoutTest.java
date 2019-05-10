@@ -18,7 +18,7 @@ public class T2LayoutTest {
 
 		Layout layout = new T2Layout("Priority - ${Priority} , Category - ${Category}, Date - ${Date}, Message - ${Message}");
 		MemAppender appender = new MemAppender(layout, 1);
-		Logger logger = Logger.getLogger("test2");
+		Logger logger = Logger.getLogger("T2LayoutTest1");
 		logger.addAppender(appender);
 		logger.error("testing test 2");
 		logger.info("testing if max");
@@ -32,7 +32,7 @@ public class T2LayoutTest {
 
 		Layout layout = new T2Layout("Priority - ${Priority} , Category - ${Category}, Date - ${Date}, Message - ${Message}");
 		MemAppender appender = new MemAppender(layout, 2);
-		Logger logger = Logger.getLogger("test2");
+		Logger logger = Logger.getLogger("T2LayoutTest2");
 		logger.addAppender(appender);
 		logger.error("testing test 2");
 		logger.info("testing if max");
@@ -48,7 +48,7 @@ public class T2LayoutTest {
 		layout.activateOptions();
 		layout.ignoresThrowable();
 		MemAppender appender = new MemAppender(layout, 2);
-		Logger logger = Logger.getLogger("test2");
+		Logger logger = Logger.getLogger("T2LayoutTest3");
 		logger.addAppender(appender);
 		logger.error("testing test 2");
 		logger.info("testing if max");

@@ -20,6 +20,7 @@ public class MemAppender extends AppenderSkeleton
 		this.layout = layout;
 		this.maxSize = maxSize;
 		this.currentLogs = new ArrayList<String>();
+		this.closed = false;
 	}
 
 	public long getDiscardedLogCount() {
