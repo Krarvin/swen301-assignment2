@@ -40,7 +40,6 @@ public class MemAppenderTest
 		System.out.println("============= Number of Discarded Logs ===============");
 		System.out.println(appender.getDiscardedLogCount());
 		System.out.println();
-		appender.close();
 
 	}
 
@@ -61,7 +60,6 @@ public class MemAppenderTest
 		System.out.println("============= Number of Discarded Logs ===============");
 		System.out.println(appender.getDiscardedLogCount());
 		System.out.println();
-		appender.close();
 
 	}
 
@@ -84,10 +82,9 @@ public class MemAppenderTest
 		System.out.println("============= Number of Discarded Logs ===============");
 		System.out.println(appender.getDiscardedLogCount());
 		System.out.println();
-		appender.close();
 	}
 
-	@Test
+	@Test (expected = RuntimeException.class)
 	public void closeTest() throws ParseException {
 
 		Layout layout = new PatternLayout();
@@ -108,6 +105,7 @@ public class MemAppenderTest
 		System.out.println(appender.getDiscardedLogCount());
 		System.out.println();
 		appender.close();
+		appender.getCurrentLogs();
 
 	}
 
@@ -115,7 +113,6 @@ public class MemAppenderTest
 	public void NullLayoutTest() throws ParseException {
 		MemAppender appender = new MemAppender(null, 3);
 		assertEquals(false, appender.requiresLayout());
-		appender.close();
 	}
 
 	@Test
@@ -123,7 +120,6 @@ public class MemAppenderTest
 		Layout layout = new PatternLayout();
 		MemAppender appender = new MemAppender(layout, 3);
 		assertEquals(true, appender.requiresLayout());
-		appender.close();
 	}
 
 	@Test
@@ -148,7 +144,6 @@ public class MemAppenderTest
 		System.out.println("============= Number of Discarded Logs ===============");
 		System.out.println(appender.getDiscardedLogCount());
 		System.out.println();
-		appender.close();
 	}
 
 	@Test
@@ -174,7 +169,6 @@ public class MemAppenderTest
 		System.out.println("============= Number of Discarded Logs ===============");
 		System.out.println(appender.getDiscardedLogCount());
 		System.out.println();
-		appender.close();
 	}
 
 	@Test
@@ -200,7 +194,6 @@ public class MemAppenderTest
 		System.out.println("============= Number of Discarded Logs ===============");
 		System.out.println(appender.getDiscardedLogCount());
 		System.out.println();
-		appender.close();
 	}
 
 
@@ -229,7 +222,6 @@ public class MemAppenderTest
 		System.out.println("============= Number of Discarded Logs ===============");
 		System.out.println(appender.getDiscardedLogCount());
 		System.out.println();
-		appender.close();
 	}
 
 	@Test
@@ -259,7 +251,6 @@ public class MemAppenderTest
 		System.out.println("============= Number of Discarded Logs ===============");
 		System.out.println(appender.getDiscardedLogCount());
 		System.out.println();
-		appender.close();
 	}
 
 	@Test
@@ -291,7 +282,6 @@ public class MemAppenderTest
 		System.out.println("============= Number of Discarded Logs ===============");
 		System.out.println(appender.getDiscardedLogCount());
 		System.out.println();
-		appender.close();
 	}
 
 
