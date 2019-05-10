@@ -1,6 +1,5 @@
 package nz.ac.vuw.swen301.assignment2;
 
-import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Layout;
 import org.apache.log4j.Logger;
 import org.junit.Test;

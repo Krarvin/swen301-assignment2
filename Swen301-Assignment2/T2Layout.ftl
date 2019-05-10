@@ -1,1 +1,0 @@
-Priority - ${Priority} , Category - ${Category}, Data - ${Date}, Message - ${Message}

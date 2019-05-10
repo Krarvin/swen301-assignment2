@@ -1,5 +1,7 @@
 package nz.ac.vuw.swen301.assignment2;
+import java.io.StringReader;
 import java.io.StringWriter;
+import java.text.SimpleDateFormat;
 
 import org.apache.log4j.Category;
 import org.apache.log4j.Layout;
@@ -8,16 +10,13 @@ import org.apache.log4j.spi.LoggingEvent;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
+import org.apache.velocity.runtime.RuntimeServices;
+import org.apache.velocity.runtime.RuntimeSingleton;
+import org.apache.velocity.runtime.parser.ParseException;
 
 public class T1Layout extends Layout{
-	private Category cat;
 
-	private Priority p;
-	private Template t;
 
-	public T1Layout() {
-
-	}
 	public void activateOptions() {
 
 
@@ -25,27 +24,28 @@ public class T1Layout extends Layout{
 
 	@Override
 	public String format(LoggingEvent event) {
-		VelocityEngine ve = new VelocityEngine();
-		Template t = ve.getTemplate("template.vm");
-		VelocityContext ce = new VelocityContext();
-		ce.put("Category", event.getLoggerName());
-		ce.put("Date", event.getTimeStamp());
-		ce.put("Message", event.getMessage());
-		ce.put("Priority", event.getLevel());
-		StringWriter writer = new StringWriter();
-		t.merge(ce, writer);
-		return writer.toString();
-//		Priority p = event.level;
-//		cat = event.getLogger();
-//
-//		VelocityEngine ve = new VelocityEngine();
-//		ve.init();
-//		this.t = ve.getTemplate("src/main/java/nz/ac/vuw/swen301/assignment2/resources/template.vm");
-//		VelocityContext ce = new VelocityContext();
-//		ce.put(this.d, this.m);
-//		StringWriter writer = new StringWriter();
-//		this.t.merge(ce, writer);
-//		return t.toString();
+		try {
+			VelocityEngine ve = new VelocityEngine();
+			RuntimeServices runtimeServices = RuntimeSingleton.getRuntimeServices();
+			StringReader reader = new StringReader("Priority - $Priority, Category - $Category, Date - $Date, Message - $Message");
+			Template t = new Template();
+			t.setRuntimeServices(runtimeServices);
+			t.setData(runtimeServices.parse(reader, "template"));
+			t.initDocument();
+			VelocityContext ce = new VelocityContext();
+			String timeStamp = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss").format(event.getTimeStamp());
+			ce.put("Category", event.getLoggerName());
+			ce.put("Date", timeStamp);
+			ce.put("Message", event.getMessage());
+			ce.put("Priority", event.getLevel());
+			StringWriter writer = new StringWriter();
+			t.merge(ce, writer);
+			return writer.toString();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	@Override

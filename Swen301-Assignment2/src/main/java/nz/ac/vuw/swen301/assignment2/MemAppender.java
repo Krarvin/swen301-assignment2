@@ -1,15 +1,11 @@
 package nz.ac.vuw.swen301.assignment2;
 
 import org.apache.log4j.AppenderSkeleton;
-import org.apache.log4j.BasicConfigurator;
-import org.apache.log4j.spi.ErrorCode;
 import org.apache.log4j.spi.LoggingEvent;
 import org.apache.log4j.Layout;
 import org.apache.log4j.Logger;
-import org.apache.log4j.PatternLayout;
-import org.apache.log4j.helpers.LogLog;
 
- import java.util.*;
+import java.util.*;
 
 
 
@@ -42,7 +38,7 @@ public class MemAppender extends AppenderSkeleton
 	}
 
 	public List<String> getCurrentLogs(){
-		return this.currentLogs;
+		return Collections.unmodifiableList(this.currentLogs);
 	}
 
 	@Override
@@ -58,8 +54,6 @@ public class MemAppender extends AppenderSkeleton
 		}
 	}
 
-	public static void main(String[] args) {
-	}
 }
 
 
