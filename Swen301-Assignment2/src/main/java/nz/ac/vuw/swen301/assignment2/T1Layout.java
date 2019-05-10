@@ -42,11 +42,11 @@ public class T1Layout extends Layout{
 			t.merge(ce, writer);
 			return writer.toString();
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
 	}
+
 
 	@Override
 	public boolean ignoresThrowable() {

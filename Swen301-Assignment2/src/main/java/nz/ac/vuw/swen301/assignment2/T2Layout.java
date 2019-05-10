@@ -26,6 +26,7 @@ public class T2Layout extends Layout{
 		String template = "Priority - ${Priority} , Category - ${Category}, Date - ${Date}, Message - ${Message}";
 		Map<String, Object> input = new HashMap<String, Object>();
 		  Configuration cfg = new Configuration(Configuration.VERSION_2_3_28);
+		  
 
 		    cfg.setIncompatibleImprovements(new Version(2, 3, 20));
 		    cfg.setDefaultEncoding("UTF-8");
@@ -42,7 +43,6 @@ public class T2Layout extends Layout{
 		    input.put("Priority", loggingEvent.getLevel());
 
 		    try {
-
 		      Template t= new Template("T2Layout", new StringReader(template), cfg);
 		      StringWriter stringWriter = new StringWriter();
 		      t.process(input,stringWriter);
@@ -51,7 +51,6 @@ public class T2Layout extends Layout{
 		      e.printStackTrace();
 		    } catch (TemplateException e) {
 		      e.printStackTrace();
-
 		    }
 		    return null;
 

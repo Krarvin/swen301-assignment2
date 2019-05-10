@@ -23,31 +23,44 @@ public class MemAppender extends AppenderSkeleton
 	}
 
 	public long getDiscardedLogCount() {
+		if(this.closed) {
+			throw new RuntimeException();
+		}
 		return this.discardCount;
 	}
 
 
 	public void close() {
-		// TODO Auto-generated method stub
-
+		this.closed = true;
 	}
 
 	public boolean requiresLayout() {
-		// TODO Auto-generated method stub
+		if(this.closed) {
+			throw new RuntimeException();
+		}
+		if(this.layout != null) {
+		return true;
+		}
 		return false;
 	}
 
 	public List<String> getCurrentLogs(){
+		if(this.closed) {
+			throw new RuntimeException();
+		}
 		return Collections.unmodifiableList(this.currentLogs);
 	}
 
 	@Override
 	protected void append(LoggingEvent event) {
+		if(this.closed) {
+			throw new RuntimeException();
+		}
 		String s = layout.format(event);
 
 		if(this.currentLogs.size() < this.maxSize) {
 			this.currentLogs.add(s);
-		}else if(currentLogs.size() == this.maxSize) {
+		}else{
 			this.currentLogs.remove(0);
 			this.discardCount++;
 			this.currentLogs.add(s);
