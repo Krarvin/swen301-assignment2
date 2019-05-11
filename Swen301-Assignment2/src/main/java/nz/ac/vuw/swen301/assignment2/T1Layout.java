@@ -30,7 +30,6 @@ public class T1Layout extends Layout{
 	@Override
 	public String format(LoggingEvent event) {
 		try {
-			VelocityEngine ve = new VelocityEngine();
 			RuntimeServices runtimeServices = RuntimeSingleton.getRuntimeServices();
 			StringReader reader = new StringReader(pattern);
 			Template t = new Template();

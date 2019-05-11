@@ -27,27 +27,19 @@ public class T2Layout extends Layout{
 
 	@Override
 	public String format(LoggingEvent loggingEvent) {
-		String template = pattern;
-		Map<String, Object> input = new HashMap<String, Object>();
-		  Configuration cfg = new Configuration(Configuration.VERSION_2_3_28);
-
-
-		    cfg.setIncompatibleImprovements(new Version(2, 3, 20));
-		    cfg.setDefaultEncoding("UTF-8");
-		    cfg.setLocale(Locale.US);
-		    cfg.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
-		    String timeStamp = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss").format(loggingEvent.getTimeStamp());
-
-		    input.put("Category", loggingEvent.getLoggerName());
-
-		    input.put("Date", timeStamp);
-
-		    input.put("Message", loggingEvent.getMessage());
-
-		    input.put("Priority", loggingEvent.getLevel());
-
 		    try {
-		      Template t= new Template("T2Layout", new StringReader(template), cfg);
+				Map<String, Object> input = new HashMap<String, Object>();
+				  Configuration cfg = new Configuration(Configuration.VERSION_2_3_28);
+				    cfg.setIncompatibleImprovements(new Version(2, 3, 20));
+				    cfg.setDefaultEncoding("UTF-8");
+				    cfg.setLocale(Locale.US);
+				    cfg.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
+				    String timeStamp = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss").format(loggingEvent.getTimeStamp());
+				    input.put("Category", loggingEvent.getLoggerName());
+				    input.put("Date", timeStamp);
+				    input.put("Message", loggingEvent.getMessage());
+				    input.put("Priority", loggingEvent.getLevel());
+		      Template t= new Template("T2Layout", new StringReader(this.pattern), cfg);
 		      StringWriter stringWriter = new StringWriter();
 		      t.process(input,stringWriter);
 		      return stringWriter.toString();

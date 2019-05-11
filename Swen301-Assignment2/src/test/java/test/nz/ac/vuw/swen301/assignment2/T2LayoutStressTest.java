@@ -17,7 +17,7 @@ public class T2LayoutStressTest {
 		Logger logger = Logger.getLogger("T2LayoutStressTest");
 		logger.addAppender(appender);
 		while(System.currentTimeMillis() - startTime < minute) {
-		logger.error("Hello World");
+		logger.error("Hi");
 		}
 
 		System.out.println("Number of log events processed in 1 minute: " + (appender.getDiscardedLogCount() + appender.getCurrentLogs().size()));
