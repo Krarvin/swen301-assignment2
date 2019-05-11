@@ -2,6 +2,7 @@ package test.nz.ac.vuw.swen301.assignment2;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
 
 import java.awt.Event;
 
@@ -81,17 +82,49 @@ public class MemAppenderTest
 		Layout layout = new PatternLayout();
 		MemAppender appender = new MemAppender(layout, 3);
 		Logger logger = Logger.getLogger("closeTest");
+		appender.close();
+		appender.requiresLayout();
+	}
+
+	@Test (expected = RuntimeException.class)
+	public void closeTest2() throws ParseException {
+
+		Layout layout = new PatternLayout();
+		MemAppender appender = new MemAppender(layout, 3);
+		appender.close();
+		appender.getCurrentLogs();
+	}
+	@Test
+	public void GetTop10Test1() throws ParseException {
+
+		Layout layout = new PatternLayout();
+		MemAppender appender = new MemAppender(layout, 3);
+		Logger logger = Logger.getLogger("Top10Test");
 		logger.addAppender(appender);
 		logger.error("error");
 		logger.info("info");
 		logger.fatal("fatal");
 		logger.debug("debug");
-		assertEquals(appender.getCurrentLogs().size(), 3);
-		assertEquals(appender.getDiscardedLogCount(), 1);
-		appender.close();
-		appender.getCurrentLogs();
+		String[] topLogs = appender.getTop10Logs();
+		assertEquals(topLogs[3], null);
 
 	}
+
+	@Test
+	public void GetTop10Test2() throws ParseException {
+
+		Layout layout = new PatternLayout();
+		MemAppender appender = new MemAppender(layout, 15);
+		Logger logger = Logger.getLogger("Top10Test2");
+		logger.addAppender(appender);
+		for(int i =0; i<20; i++) {
+			logger.error("error");
+		}
+		String[] topLogs = appender.getTop10Logs();
+		assertNotNull(topLogs[9]);
+
+	}
+
 
 	@Test
 	public void NullLayoutTest() throws ParseException {
