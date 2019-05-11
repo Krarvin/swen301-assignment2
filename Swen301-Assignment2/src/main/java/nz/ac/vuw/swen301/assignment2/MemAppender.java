@@ -9,7 +9,7 @@ import java.util.*;
 
 
 
-public class MemAppender extends AppenderSkeleton
+public class MemAppender extends AppenderSkeleton implements MemAppenderMBean
 {
 	private List<String> currentLogs;
 	private long maxSize;
@@ -21,13 +21,6 @@ public class MemAppender extends AppenderSkeleton
 		this.maxSize = maxSize;
 		this.currentLogs = new ArrayList<String>();
 		this.closed = false;
-	}
-
-	public long getDiscardedLogCount() {
-		if(this.closed) {
-			throw new RuntimeException();
-		}
-		return this.discardCount;
 	}
 
 
@@ -54,9 +47,6 @@ public class MemAppender extends AppenderSkeleton
 
 	@Override
 	protected void append(LoggingEvent event) {
-		if(this.closed) {
-			throw new RuntimeException();
-		}
 		String s = layout.format(event);
 
 		if(this.currentLogs.size() < this.maxSize) {
@@ -66,6 +56,30 @@ public class MemAppender extends AppenderSkeleton
 			this.discardCount++;
 			this.currentLogs.add(s);
 		}
+	}
+
+	public String[] getTop10Logs() {
+		String[] top10Logs = new String[10];
+		if(this.getLogCount() < 10) {
+			for(int i = 0; i < this.getLogCount();i++) {
+				top10Logs[i] = this.getCurrentLogs().get(i);
+			}
+		}
+		else {
+			for(int i = 0; i < 10; i++) {
+				top10Logs[i] = this.getCurrentLogs().get(this.getCurrentLogs().size() - (i + 1));
+				System.out.println(top10Logs[i]);
+			}
+		}
+		return top10Logs;
+	}
+
+	public long getLogCount() {
+		return this.currentLogs.size();
+	}
+
+	public long getDiscardedLogCount() {
+		return this.discardCount;
 	}
 
 }

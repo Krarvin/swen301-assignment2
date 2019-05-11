@@ -37,8 +37,6 @@ public class T1LayoutTest {
 		logger.error("testing test 2");
 		logger.info("testing if max");
 		assertEquals(appender.getCurrentLogs().size(), 2);
-
-
 	}
 
 	@Test
@@ -217,7 +215,7 @@ public class T1LayoutTest {
 		assertEquals(appender.getCurrentLogs().size(), 3);
 		assertNotEquals(copy1, appender.getCurrentLogs().get(0));
 		assertNotEquals(copy2, appender.getCurrentLogs().get(1));
-		assertNotEquals(copy2, appender.getCurrentLogs().get(2));
+		assertNotEquals(copy3, appender.getCurrentLogs().get(2));
 		assertEquals(3, appender.getDiscardedLogCount());
 
 	}

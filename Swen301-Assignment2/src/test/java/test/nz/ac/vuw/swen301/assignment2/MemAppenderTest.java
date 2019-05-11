@@ -30,16 +30,11 @@ public class MemAppenderTest
 
 		Layout layout = new PatternLayout();
 		MemAppender appender = new MemAppender(layout, 1);
-		Logger logger = Logger.getLogger("test2");
+		Logger logger = Logger.getLogger("MemAppenderTest1");
 		logger.addAppender(appender);
-		logger.error("testing test 2");
-		logger.info("testing if max");
+		logger.error("error");
+		logger.info("info");
 		assertEquals(appender.getDiscardedLogCount(), 1);
-		System.out.println("============= test 1 Current Logs ===============");
-		System.out.print(appender.getCurrentLogs().get(0).toString());
-		System.out.println("============= Number of Discarded Logs ===============");
-		System.out.println(appender.getDiscardedLogCount());
-		System.out.println();
 
 	}
 
@@ -48,19 +43,11 @@ public class MemAppenderTest
 
 		Layout layout = new PatternLayout();
 		MemAppender appender = new MemAppender(layout, 2);
-		Logger logger = Logger.getLogger("test2");
+		Logger logger = Logger.getLogger("MemAppenderTest2");
 		logger.addAppender(appender);
-		logger.error("testing test 2");
-		logger.info("testing if max");
+		logger.error("error");
+		logger.info("info");
 		assertEquals(appender.getCurrentLogs().size(), 2);
-		System.out.println("============= test 2 Current Logs ===============");
-		for(int i = 0; i < appender.getCurrentLogs().size(); i++) {
-		System.out.print(appender.getCurrentLogs().get(i).toString());
-		}
-		System.out.println("============= Number of Discarded Logs ===============");
-		System.out.println(appender.getDiscardedLogCount());
-		System.out.println();
-
 	}
 
 	@Test
@@ -70,18 +57,22 @@ public class MemAppenderTest
 		layout.activateOptions();
 		layout.ignoresThrowable();
 		MemAppender appender = new MemAppender(layout, 2);
-		Logger logger = Logger.getLogger("test2");
+		Logger logger = Logger.getLogger("MemAppenderTest3");
 		logger.addAppender(appender);
-		logger.error("testing test 2");
-		logger.info("testing if max");
+		logger.error("error");
+		logger.info("info");
 		assertEquals(appender.getCurrentLogs().size(), 2);
-		System.out.println("============= test 3 Current Logs ===============");
-		for(int i = 0; i < appender.getCurrentLogs().size(); i++) {
-		System.out.print(appender.getCurrentLogs().get(i).toString());
-		}
-		System.out.println("============= Number of Discarded Logs ===============");
-		System.out.println(appender.getDiscardedLogCount());
-		System.out.println();
+	}
+
+	@Test (expected = UnsupportedOperationException.class)
+	public void UnmodifiableListTest() {
+		Layout layout = new PatternLayout();
+		MemAppender appender = new MemAppender(layout, 2);
+		Logger logger = Logger.getLogger("UnmodifiableTest");
+		logger.addAppender(appender);
+		logger.error("error");
+		logger.error("error");
+		appender.getCurrentLogs().add(1, "should throw exception");
 	}
 
 	@Test (expected = RuntimeException.class)
@@ -89,21 +80,14 @@ public class MemAppenderTest
 
 		Layout layout = new PatternLayout();
 		MemAppender appender = new MemAppender(layout, 3);
-		Logger logger = Logger.getLogger("test2");
+		Logger logger = Logger.getLogger("closeTest");
 		logger.addAppender(appender);
-		logger.error("testing test 2");
-		logger.info("testing if max");
-		logger.fatal("testing size");
-		logger.debug("over size");
+		logger.error("error");
+		logger.info("info");
+		logger.fatal("fatal");
+		logger.debug("debug");
 		assertEquals(appender.getCurrentLogs().size(), 3);
 		assertEquals(appender.getDiscardedLogCount(), 1);
-		System.out.println("============= test 4Current Logs ===============");
-		for(int i = 0; i < appender.getCurrentLogs().size(); i++) {
-		System.out.print(appender.getCurrentLogs().get(i).toString());
-		}
-		System.out.println("============= Number of Discarded Logs ===============");
-		System.out.println(appender.getDiscardedLogCount());
-		System.out.println();
 		appender.close();
 		appender.getCurrentLogs();
 
@@ -138,12 +122,6 @@ public class MemAppenderTest
 		logger.trace("trace level");
 		assertEquals(1, appender.getCurrentLogs().size());
 		assertEquals(0, appender.getDiscardedLogCount());
-		System.out.println("=============Fatal Level Current Logs ===============");
-		for(int i = 0; i < appender.getCurrentLogs().size(); i++) {
-		System.out.print(appender.getCurrentLogs().get(i).toString());}
-		System.out.println("============= Number of Discarded Logs ===============");
-		System.out.println(appender.getDiscardedLogCount());
-		System.out.println();
 	}
 
 	@Test
@@ -162,13 +140,7 @@ public class MemAppenderTest
 		logger.trace("trace level");
 		assertEquals(2, appender.getCurrentLogs().size());
 		assertEquals(0, appender.getDiscardedLogCount());
-		System.out.println("=============Error Level Current Logs ===============");
-		for(int i = 0; i < appender.getCurrentLogs().size(); i++) {
-		System.out.print(appender.getCurrentLogs().get(i).toString());
-		}
-		System.out.println("============= Number of Discarded Logs ===============");
-		System.out.println(appender.getDiscardedLogCount());
-		System.out.println();
+
 	}
 
 	@Test
@@ -187,13 +159,7 @@ public class MemAppenderTest
 		logger.trace("trace level");
 		assertEquals(3, appender.getCurrentLogs().size());
 		assertEquals(0, appender.getDiscardedLogCount());
-		System.out.println("=============Warn Current Logs ===============");
-		for(int i = 0; i < appender.getCurrentLogs().size(); i++) {
-		System.out.print(appender.getCurrentLogs().get(i).toString());
-		}
-		System.out.println("============= Number of Discarded Logs ===============");
-		System.out.println(appender.getDiscardedLogCount());
-		System.out.println();
+
 	}
 
 
@@ -215,13 +181,7 @@ public class MemAppenderTest
 		assertEquals(3, appender.getCurrentLogs().size());
 		assertNotEquals(copy, appender.getCurrentLogs().get(0));
 		assertEquals(1, appender.getDiscardedLogCount());
-		System.out.println("============= Info Level Current Logs ===============");
-		for(int i = 0; i < appender.getCurrentLogs().size(); i++) {
-		System.out.print(appender.getCurrentLogs().get(i).toString());
-		}
-		System.out.println("============= Number of Discarded Logs ===============");
-		System.out.println(appender.getDiscardedLogCount());
-		System.out.println();
+
 	}
 
 	@Test
@@ -244,13 +204,7 @@ public class MemAppenderTest
 		assertNotEquals(copy1, appender.getCurrentLogs().get(0));
 		assertNotEquals(copy2, appender.getCurrentLogs().get(1));
 		assertEquals(2, appender.getDiscardedLogCount());
-		System.out.println("============= Debug Level Current Logs ===============");
-		for(int i = 0; i < appender.getCurrentLogs().size(); i++) {
-		System.out.print(appender.getCurrentLogs().get(i).toString());
-		}
-		System.out.println("============= Number of Discarded Logs ===============");
-		System.out.println(appender.getDiscardedLogCount());
-		System.out.println();
+
 	}
 
 	@Test
@@ -273,15 +227,9 @@ public class MemAppenderTest
 		assertEquals(appender.getCurrentLogs().size(), 3);
 		assertNotEquals(copy1, appender.getCurrentLogs().get(0));
 		assertNotEquals(copy2, appender.getCurrentLogs().get(1));
-		assertNotEquals(copy2, appender.getCurrentLogs().get(2));
+		assertNotEquals(copy3, appender.getCurrentLogs().get(2));
 		assertEquals(3, appender.getDiscardedLogCount());
-		System.out.println("============= Trace Level Current Logs ===============");
-		for(int i = 0; i < appender.getCurrentLogs().size(); i++) {
-		System.out.print(appender.getCurrentLogs().get(i).toString());
-		}
-		System.out.println("============= Number of Discarded Logs ===============");
-		System.out.println(appender.getDiscardedLogCount());
-		System.out.println();
+
 	}
 
 
