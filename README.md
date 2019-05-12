@@ -1,10 +1,10 @@
-**a. Any special Instructions to run the tests (if needed)**
+<h1>a.</h1> **Any special Instructions to run the tests (if needed)**
 
 All of the test can be run by 'mvn clean test' in terminal. However, for question 9 regarding MBean only MemAppender is monitored.
 Therefore when marking question 9 it may be easier to run the MemAppenderStressTest individually so you can open JConsole to check.
 
 
-**b.A reflection on the test coverage reports (in particular, an explanation why certain parts of the code are not covered). Insert a summary of the reports (e.g., embed a screenshot)**
+<h1>b.</h1>**A reflection on the test coverage reports (in particular, an explanation why certain parts of the code are not covered). Insert a summary of the reports (e.g., embed a screenshot)**
 
 
 My test coverage for this assignment is as follows.
@@ -26,7 +26,7 @@ The second catch exception never accessed in my T2 Layout is the Template Except
 are always valid. the first parameter is a hashmap which is always created at the start of my method and a new StringWriter is made for each time format is called,
 therefore TemplateException will never be reached.
 
-c. **An evaluation which of the layouts, T1Layout or T2Layout, you recommend for use. Base your decision on your experience (ease of use),technical aspects (e.g. performance as shown in the stress tests, stability, number and size of direct and indirect dependencies), and social aspects (size and activity of developer community, license, support like mailing lists and stackoverflow topics, usage by others, …) **
+<h1>c.</h1> **An evaluation which of the layouts, T1Layout or T2Layout, you recommend for use. Base your decision on your experience (ease of use),technical aspects (e.g. performance as shown in the stress tests, stability, number and size of direct and indirect dependencies), and social aspects (size and activity of developer community, license, support like mailing lists and stackoverflow topics, usage by others, …) **
 
 
 I personally found Velocity(T1Layout) easier to use compared to FreeMarker(T2Layout). Based on personal experience Velocity seems like a more straightforward
