@@ -1,11 +1,12 @@
-a. Any special Instructions to run the tests (if needed)
+**a. Any special Instructions to run the tests (if needed)**
 
 All of the test can be run by 'mvn clean test' in terminal. However, for question 9 regarding MBean only MemAppender is monitored.
 Therefore when marking question 9 it may be easier to run the MemAppenderStressTest individually so you can open JConsole to check.
 
 
-b.A reflection on the test coverage reports (in particular, an explanation why certain parts of the code are not covered).
-Insert a summary of the reports (e.g., embed a screenshot)
+**b.A reflection on the test coverage reports (in particular, an explanation why certain parts of the code are not covered).
+Insert a summary of the reports (e.g., embed a screenshot)**
+
 
 My test coverage for this assignment is as follows.
 
@@ -26,14 +27,26 @@ The second catch exception never accessed in my T2 Layout is the Template Except
 are always valid. the first parameter is a hashmap which is always created at the start of my method and a new StringWriter is made for each time format is called,
 therefore TemplateException will never be reached.
 
-c.An evaluation which of the layouts, T1Layout or T2Layout, you recommend for use. Base your decision on your experience (ease of use),
+c. **An evaluation which of the layouts, T1Layout or T2Layout, you recommend for use. Base your decision on your experience (ease of use),
 technical aspects (e.g. performance as shown in the stress tests, stability, number and size of direct and indirect dependencies), 
-and social aspects (size and activity of developer community, license, support like mailing lists and stackoverflow topics, usage by others, …) 
+and social aspects (size and activity of developer community, license, support like mailing lists and stackoverflow topics, usage by others, …) **
+
 
 I personally found Velocity(T1Layout) easier to use compared to FreeMarker(T2Layout). Based on personal experience Velocity seems like a more straightforward
 layout to complete the task given. This was due to the configuration settings that FreeMarker provides which didn't really benefit this particular assignment, 
-whereas Velocity keeps it simple with just requiring a VelocityContext to log Strings. In terms of performance, my Velocity Layout 
+whereas Velocity keeps it simple with just requiring a VelocityContext to log Strings. In terms of performance, using the same Template format, my velocity layout
+processed 7719189 logs compared to FreeMarker which processed 2097218 logs. I think FreeMarker may have underperformed due to having to set configuration settings
+for each time format was called and also dynamically storing a new HashMap each time format is called.
 
+In terms of stability, I do think Velocity is more stable 
+due to the fact that in Freemarker you can change configuration settings to handle different charset encoding, versions, exception handlers
+and which exceptions to log, which adds more complexity that could cause issues when logging.
+I also found that creating templates with FreeMarker was slightly easier than Velocity for this task
+because Velocity requires runtimeServices to generate templates.
 
+In terms of Social Aspects, I found that velocity seems to have a larger user base. This may be down to it being a more fast and stable engine so it feels more
+familiar for most logging tasks. When searching both velocity and freemarker on stack overflow by newest, I found freemarker to have more recent posts but this 
+boil down to freemarker being more complex and users having more uncertainties. In terms of development, FreeMarker has a larger development community due to the 
+complexity of the engine whereas velocity requires a smaller development community as it remains fixed stable and usable. Both Velocity and FreeMarker are on version
+2.0 and were licensed in January 2004. However the maven directory only had a dependancy as far as 1.7 where freemarker went up to 2.3.28. 
 
-The README should be brief, at least 300 but not more than 800 words
