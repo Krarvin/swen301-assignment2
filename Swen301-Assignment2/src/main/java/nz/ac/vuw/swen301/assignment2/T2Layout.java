@@ -25,14 +25,10 @@ public class T2Layout extends Layout{
 	}
 
 	@Override
-	public String format(LoggingEvent loggingEvent) {
+	public String format(LoggingEvent loggingEvent){
 		    try {
 				Map<String, Object> input = new HashMap<String, Object>();
 				  Configuration cfg = new Configuration(Configuration.VERSION_2_3_28);
-				    cfg.setIncompatibleImprovements(new Version(2, 3, 20));
-				    cfg.setDefaultEncoding("UTF-8");
-				    cfg.setLocale(Locale.US);
-				    cfg.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
 				    String timeStamp = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss").format(loggingEvent.getTimeStamp());
 				    input.put("Category", loggingEvent.getLoggerName());
 				    input.put("Date", timeStamp);

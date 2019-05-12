@@ -34,7 +34,6 @@ public class T2LayoutTest {
 
 	@Test
 	public void T2LayoutTest2() {
-
 		Layout layout = new T2Layout("Priority - ${Priority} , Category - ${Category}, Date - ${Date}, Message - ${Message}");
 		MemAppender appender = new MemAppender(layout, 2);
 		Logger logger = Logger.getLogger("T2LayoutTest2");
@@ -42,9 +41,8 @@ public class T2LayoutTest {
 		logger.error("testing test 2");
 		logger.info("testing if max");
 		assertEquals(appender.getCurrentLogs().size(), 2);
-
-
 	}
+
 
 	@Test
 	public void T2LayoutTest3() {

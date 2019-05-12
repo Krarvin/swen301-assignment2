@@ -52,7 +52,8 @@ public class MemAppenderStressTest {
 		while(System.currentTimeMillis() - startTime < minute) {
 		logger.error("Hello World");
 		}
-		System.out.println("Number of log events processed in 1 minute: " + (mbean.getDiscardedLogCount() + mbean.getCurrentLogs().size()));
+		System.out.println("MEMAPPENDER NUMBER OF LOG EVENTS PROCESSED IN 1 MINUTE: " + (mbean.getDiscardedLogCount() + mbean.getCurrentLogs().size()));
+
 
 	}
 }

@@ -37,6 +37,7 @@ public class T1LayoutTest {
 
 	}
 
+
 	/*
      * test getCurrentLogs method with Velocity Layout
      * by adding 2 logs to an appender with maxSize 2 and checking getCurrentLogs is 2.

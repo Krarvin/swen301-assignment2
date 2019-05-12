@@ -56,6 +56,7 @@ public class MemAppender extends AppenderSkeleton implements MemAppenderMBean
 			this.discardCount++;
 			this.currentLogs.add(s);
 		}
+
 	}
 
 	public String[] getTop10Logs() {
@@ -68,7 +69,6 @@ public class MemAppender extends AppenderSkeleton implements MemAppenderMBean
 		else {
 			for(int i = 0; i < 10; i++) {
 				top10Logs[i] = this.getCurrentLogs().get(this.getCurrentLogs().size() - (i + 1));
-				System.out.println(top10Logs[i]);
 			}
 		}
 		return top10Logs;

@@ -25,8 +25,8 @@ public class T2LayoutStressTest {
 		while(System.currentTimeMillis() - startTime < minute) {
 		logger.error("Hi");
 		}
-		System.out.println();
-		System.out.println("T2 Layout Number of log events processed in 1 minute: " + (appender.getDiscardedLogCount() + appender.getCurrentLogs().size()));
+		System.out.println("FREEMARKER LAYOUT NUMBER OF LOG EVENTS PROCESSED IN 1 MINUTE: " + (appender.getDiscardedLogCount() + appender.getCurrentLogs().size()));
+
 
 	}
 }

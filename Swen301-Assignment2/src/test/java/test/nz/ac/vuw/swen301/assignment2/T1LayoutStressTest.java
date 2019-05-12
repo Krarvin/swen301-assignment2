@@ -32,8 +32,7 @@ public class T1LayoutStressTest {
 		while(System.currentTimeMillis() - startTime < minute) {
 		logger.error("Hi");
 		}
-
-		System.out.println("Number of log events processed in 1 minute: " + (appender.getDiscardedLogCount() + appender.getCurrentLogs().size()));
+		System.out.println("VELOCITY NUMBER OF LOG EVENTS PROCESSED IN 1 MINUTE: " + (appender.getDiscardedLogCount() + appender.getCurrentLogs().size()));
 
 	}
 }
