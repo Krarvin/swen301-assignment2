@@ -17,14 +17,14 @@ import freemarker.core.ParseException;
 import nz.ac.vuw.swen301.assignment2.MemAppender;
 
 /**
- * Unit test for simple App.
+ * Unit test for MemAppender Class.
+ * @author hoongkevi
+ *
  */
 public class MemAppenderTest
 {
-    /**
-     * Create the test case
-     *
-     * @param testName name of the test case
+    /*
+     * test DiscardedLogCount method by adding 2 logs to an appender with maxSize 1 and checking discardedLogCount is 1.
      */
 	@Test
 	public void MemAppenderTest1() {
@@ -38,7 +38,9 @@ public class MemAppenderTest
 		assertEquals(appender.getDiscardedLogCount(), 1);
 
 	}
-
+	/*
+     * test getCurrentLogs method by adding 2 logs to an appender with maxSize 2 and checking getCurrentLogs is 2.
+     */
 	@Test
 	public void MemAppenderTest2() {
 
@@ -50,21 +52,26 @@ public class MemAppenderTest
 		logger.info("info");
 		assertEquals(appender.getCurrentLogs().size(), 2);
 	}
-
+	/*
+     * tests that both currentlogs and discardedLogCount work in correlation to each other
+     */
 	@Test
 	public void MemAppenderTest3() {
 
 		Layout layout = new PatternLayout();
 		layout.activateOptions();
 		layout.ignoresThrowable();
-		MemAppender appender = new MemAppender(layout, 2);
+		MemAppender appender = new MemAppender(layout, 1);
 		Logger logger = Logger.getLogger("MemAppenderTest3");
 		logger.addAppender(appender);
 		logger.error("error");
 		logger.info("info");
-		assertEquals(appender.getCurrentLogs().size(), 2);
+		assertEquals(appender.getCurrentLogs().size(), 1);
+		assertEquals(appender.getDiscardedLogCount(), 1);
 	}
-
+	/*
+     * Test that getCurrentLogs returns an unmodifiable list.
+     */
 	@Test (expected = UnsupportedOperationException.class)
 	public void UnmodifiableListTest() {
 		Layout layout = new PatternLayout();
@@ -75,7 +82,10 @@ public class MemAppenderTest
 		logger.error("error");
 		appender.getCurrentLogs().add(1, "should throw exception");
 	}
-
+	/*
+     * test that close truely closes the appender by calling a requiresLayout on appender after close and
+     * expecting a RuntimeException.
+     */
 	@Test (expected = RuntimeException.class)
 	public void closeTest() throws ParseException {
 
@@ -85,7 +95,10 @@ public class MemAppenderTest
 		appender.close();
 		appender.requiresLayout();
 	}
-
+	/*
+     * test that close truely closes the appender by calling GetCurrentLogs on appender after close and
+     * expecting a RuntimeException.
+     */
 	@Test (expected = RuntimeException.class)
 	public void closeTest2() throws ParseException {
 
@@ -94,6 +107,9 @@ public class MemAppenderTest
 		appender.close();
 		appender.getCurrentLogs();
 	}
+	/*
+     * Tests that GetTop10Test will still work even if our maxSize is less than 10.
+     */
 	@Test
 	public void GetTop10Test1() throws ParseException {
 
@@ -109,7 +125,9 @@ public class MemAppenderTest
 		assertEquals(topLogs[3], null);
 
 	}
-
+	/*
+     * Tests that GetTop10Test works when maxSize is > 10.
+     */
 	@Test
 	public void GetTop10Test2() throws ParseException {
 
@@ -125,13 +143,18 @@ public class MemAppenderTest
 
 	}
 
-
+	/*
+     * Tests that requiresLayout returns false if Layout is not found.
+     */
 	@Test
 	public void NullLayoutTest() throws ParseException {
 		MemAppender appender = new MemAppender(null, 3);
 		assertEquals(false, appender.requiresLayout());
 	}
 
+	/*
+     * Tests that requiresLayout returns true when there is a layout.
+     */
 	@Test
 	public void LayoutTest() throws ParseException {
 		Layout layout = new PatternLayout();
@@ -139,6 +162,10 @@ public class MemAppenderTest
 		assertEquals(true, appender.requiresLayout());
 	}
 
+	/*
+     * Tests Memappender with PatternLayout and level FATAL. So that currentLogs only stores Levels that are above.
+     * And discards levels that are below.
+     */
 	@Test
 	public void testFatalLevel() throws ParseException {
 
@@ -156,7 +183,10 @@ public class MemAppenderTest
 		assertEquals(1, appender.getCurrentLogs().size());
 		assertEquals(0, appender.getDiscardedLogCount());
 	}
-
+	/*
+     * Tests Memappender with level ERROR. So that currentLogs only stores Levels that are above.
+     * And discards levels that are below.
+     */
 	@Test
 	public void testErrorLevel() throws ParseException {
 
@@ -175,7 +205,10 @@ public class MemAppenderTest
 		assertEquals(0, appender.getDiscardedLogCount());
 
 	}
-
+	/*
+     * Tests Memappender with level WARN. So that currentLogs only stores Levels that are above.
+     * And discards levels that are below.
+     */
 	@Test
 	public void testWarnLevel() throws ParseException {
 
@@ -195,7 +228,10 @@ public class MemAppenderTest
 
 	}
 
-
+	/*
+     * Tests Memappender with level INFO. So that currentLogs only stores Levels that are above.
+     * And discards levels that are below.
+     */
 	@Test
 	public void testInfoLevel() throws ParseException {
 
@@ -216,7 +252,10 @@ public class MemAppenderTest
 		assertEquals(1, appender.getDiscardedLogCount());
 
 	}
-
+	/*
+     * Tests Memappender with level DEBUG. So that currentLogs only stores Levels that are above.
+     * And discards levels that are below.
+     */
 	@Test
 	public void testDebugLevel() throws ParseException {
 
@@ -239,7 +278,10 @@ public class MemAppenderTest
 		assertEquals(2, appender.getDiscardedLogCount());
 
 	}
-
+	/*
+     * Tests Memappender with level TRACE. So that currentLogs only stores Levels that are above.
+     * And discards levels that are below.
+     */
 	@Test
 	public void testTraceLevel() throws ParseException {
 

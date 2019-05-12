@@ -12,6 +12,11 @@ import freemarker.core.ParseException;
 import nz.ac.vuw.swen301.assignment2.MemAppender;
 import nz.ac.vuw.swen301.assignment2.T2Layout;
 
+/*
+ * Tests that all functionality of MemAppender works with a T2Layout and all logger levels.
+ * Also tests that the formatting of logs from T2Layout is accurate.
+ * @author hoongkevi
+ */
 public class T2LayoutTest {
 	@Test
 	public void T2LayoutTest1() {

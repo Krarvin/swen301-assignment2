@@ -15,7 +15,6 @@ import java.util.Map;
 public class T2Layout extends Layout{
 
 	public void activateOptions() {
-		// TODO Auto-generated method stub
 
 	}
 
@@ -54,7 +53,6 @@ public class T2Layout extends Layout{
 
 	@Override
 	public boolean ignoresThrowable() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 

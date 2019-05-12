@@ -12,7 +12,17 @@ import freemarker.core.ParseException;
 import nz.ac.vuw.swen301.assignment2.MemAppender;
 import nz.ac.vuw.swen301.assignment2.T1Layout;
 
+/*
+ * Tests that all functionality of MemAppender works with a T1Layout and all logger levels.
+ * Also tests that the formatting of logs from T1Layout is accurate.
+ * @author hoongkevi
+ */
 public class T1LayoutTest {
+
+	/*
+     * test DiscardedLogCount method with Velocity Layout
+     * by adding 2 logs to an appender with maxSize 1 and checking discardedLogCount is 1.
+     */
 	@Test
 	public void T1LayoutTest1() {
 
@@ -27,6 +37,10 @@ public class T1LayoutTest {
 
 	}
 
+	/*
+     * test getCurrentLogs method with Velocity Layout
+     * by adding 2 logs to an appender with maxSize 2 and checking getCurrentLogs is 2.
+     */
 	@Test
 	public void T1LayoutTest2() {
 
@@ -39,6 +53,10 @@ public class T1LayoutTest {
 		assertEquals(appender.getCurrentLogs().size(), 2);
 	}
 
+	/*
+     * tests that both currentlogs and discardedLogCount work in correlation to each other
+     * with a velocity layout.
+     */
 	@Test
 	public void T1LayoutTest3() {
 
@@ -54,6 +72,10 @@ public class T1LayoutTest {
 
 	}
 
+	/*
+     * tests that the String Log output by velocity engine matches the Layout we made when running
+     * T1 Layout format.
+     */
 	@Test
 	public void T1FormatTest() {
 
@@ -68,7 +90,10 @@ public class T1LayoutTest {
 		assertEquals(appender.getCurrentLogs().get(0), ("Priority - INFO , Category - FormatTest, Message - testing Format"));
 
 	}
-
+	/*
+     * test that close truely closes the appender by calling a getCurrentLogs on appender after close and
+     * expecting a RuntimeException.
+     */
 	@Test (expected = RuntimeException.class)
 	public void closeTest() throws ParseException {
 
@@ -79,13 +104,9 @@ public class T1LayoutTest {
 
 	}
 
-	@Test
-	public void NullLayoutTest() throws ParseException {
-		MemAppender appender = new MemAppender(null, 3);
-		assertEquals(false, appender.requiresLayout());
-
-	}
-
+	/*
+     * Tests that requiresLayout returns true for a T1Layout.
+     */
 	@Test
 	public void LayoutTest() throws ParseException {
 		Layout layout = new T1Layout("Priority - ${Priority} , Category - ${Category}, Date - ${Date}, Message - ${Message}");
@@ -93,6 +114,10 @@ public class T1LayoutTest {
 		assertEquals(true, appender.requiresLayout());
 	}
 
+	/*
+     * Tests Memappender with T1Layout and level FATAL. So that currentLogs only stores Levels that are above.
+     * And discards levels that are below.
+     */
 	@Test
 	public void testFatalLevel() throws ParseException {
 
@@ -112,6 +137,10 @@ public class T1LayoutTest {
 
 	}
 
+	/*
+     * Tests Memappender with T1Layout and level ERROR. So that currentLogs only stores Levels that are above.
+     * And discards levels that are below.
+     */
 	@Test
 	public void testErrorLevel() throws ParseException {
 
@@ -131,6 +160,10 @@ public class T1LayoutTest {
 
 	}
 
+	/*
+     * Tests Memappender with T1Layout and level WARN. So that currentLogs only stores Levels that are above.
+     * And discards levels that are below.
+     */
 	@Test
 	public void testWarnLevel() throws ParseException {
 
@@ -150,7 +183,10 @@ public class T1LayoutTest {
 
 	}
 
-
+	/*
+     * Tests Memappender with T1Layout and level INFO. So that currentLogs only stores Levels that are above.
+     * And discards levels that are below.
+     */
 	@Test
 	public void testInfoLevel() throws ParseException {
 
@@ -172,6 +208,10 @@ public class T1LayoutTest {
 
 	}
 
+	/*
+     * Tests Memappender with T1Layout and level DEBUG. So that currentLogs only stores Levels that are above.
+     * And discards levels that are below.
+     */
 	@Test
 	public void testDebugLevel() throws ParseException {
 
@@ -195,6 +235,10 @@ public class T1LayoutTest {
 
 	}
 
+	/*
+     * Tests Memappender with T1Layout and level TRACE. So that currentLogs only stores Levels that are above.
+     * And discards levels that are below.
+     */
 	@Test
 	public void testTraceLevel() throws ParseException {
 

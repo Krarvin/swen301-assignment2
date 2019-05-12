@@ -23,8 +23,6 @@ public class T1Layout extends Layout{
 
 
 	public void activateOptions() {
-
-
 	}
 
 	@Override
@@ -54,7 +52,6 @@ public class T1Layout extends Layout{
 
 	@Override
 	public boolean ignoresThrowable() {
-
 		return false;
 	}
 

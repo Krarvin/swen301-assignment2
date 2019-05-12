@@ -8,6 +8,12 @@ import nz.ac.vuw.swen301.assignment2.MemAppender;
 import nz.ac.vuw.swen301.assignment2.T2Layout;
 
 public class T2LayoutStressTest {
+
+	/*
+	 * Stress tests T2Layout by calling loggingEvents for a minute and outputting the amount of
+	 * discarded logs + current logs after 1 minute.
+	 * @author hoongkevi
+	 */
 	@Test
 	public void T2LayoutStressTest1() {
 		long startTime = System.currentTimeMillis();
@@ -19,8 +25,8 @@ public class T2LayoutStressTest {
 		while(System.currentTimeMillis() - startTime < minute) {
 		logger.error("Hi");
 		}
-
-		System.out.println("Number of log events processed in 1 minute: " + (appender.getDiscardedLogCount() + appender.getCurrentLogs().size()));
+		System.out.println();
+		System.out.println("T2 Layout Number of log events processed in 1 minute: " + (appender.getDiscardedLogCount() + appender.getCurrentLogs().size()));
 
 	}
 }

@@ -7,6 +7,7 @@ import org.apache.log4j.Layout;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PatternLayout;
+import org.apache.log4j.spi.LoggingEvent;
 import org.junit.Test;
 
 import freemarker.core.ParseException;
@@ -14,6 +15,12 @@ import nz.ac.vuw.swen301.assignment2.MemAppender;
 import nz.ac.vuw.swen301.assignment2.T1Layout;
 
 public class T1LayoutStressTest {
+
+	/*
+	 * Stress tests T2Layout by calling loggingEvents for a minute and outputting the amount of
+	 * discarded logs + current logs after 1 minute.
+	 * @author hoongkevi
+	 */
 	@Test
 	public void T1LayoutStressTest1() {
 		long startTime = System.currentTimeMillis();
