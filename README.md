@@ -34,7 +34,7 @@ therefore TemplateException will never be reached.
 
 **An evaluation which of the layouts, T1Layout or T2Layout, you recommend for use.**
 **Base your decision on your experience (ease of use),technical aspects (e.g. performance as shown in the stress tests, stability, number and size of direct and indirect dependencies),**
-**and social aspects (size and activity of developer community, license, support like mailing lists and stackoverflow topics, usage by others, …) **
+**and social aspects (size and activity of developer community, license, support like mailing lists and stackoverflow topics, usage by others, …).**
 
 
 I personally found Velocity(T1Layout) easier to use compared to FreeMarker(T2Layout). Based on personal experience Velocity seems like a more straightforward
